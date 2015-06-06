@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="217.ContainsDuplicate.Test.cs" />
     <Compile Include="218.TheSkylineProblem.Test.cs" />
+    <Compile Include="220.ContainsDuplicateIII.Test.cs" />
     <Compile Include="221.MaximalSquare.Test.cs" />
     <Compile Include="222.CountCompleteTreeNodes.Test.cs" />
     <Compile Include="219.ContainsDuplicateII.Test.cs" />

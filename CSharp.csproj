@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="217.ContainsDuplicate.cs" />
+    <Compile Include="220.ContainsDuplicateIII.cs" />
     <Compile Include="219.ContainsDuplicateII.cs" />
     <Compile Include="218.TheSkylineProblem.cs" />
   </ItemGroup>
