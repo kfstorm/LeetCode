@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="146.LRUCache.Test.cs" />
+    <Compile Include="149.MaxPointsOnALine.Test.cs" />
     <Compile Include="212.WordSearchII.Test.cs" />
     <Compile Include="214.ShortestPalindrome.Test.cs" />
     <Compile Include="217.ContainsDuplicate.Test.cs" />
