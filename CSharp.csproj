@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="214.ShortestPalindrome.cs" />
     <Compile Include="217.ContainsDuplicate.cs" />
     <Compile Include="220.ContainsDuplicateIII.cs" />
     <Compile Include="219.ContainsDuplicateII.cs" />

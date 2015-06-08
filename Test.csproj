@@ -46,6 +46,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="214.ShortestPalindrome.Test.cs" />
     <Compile Include="217.ContainsDuplicate.Test.cs" />
     <Compile Include="218.TheSkylineProblem.Test.cs" />
     <Compile Include="220.ContainsDuplicateIII.Test.cs" />
