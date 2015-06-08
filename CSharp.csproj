@@ -43,6 +43,7 @@
     <Compile Include="220.ContainsDuplicateIII.cs" />
     <Compile Include="219.ContainsDuplicateII.cs" />
     <Compile Include="218.TheSkylineProblem.cs" />
+    <Compile Include="223.RectangleArea.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
