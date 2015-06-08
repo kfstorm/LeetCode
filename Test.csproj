@@ -56,6 +56,7 @@
     <Compile Include="222.CountCompleteTreeNodes.Test.cs" />
     <Compile Include="219.ContainsDuplicateII.Test.cs" />
     <Compile Include="223.RectangleArea.Test.cs" />
+    <Compile Include="65.ValidNumber.Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="CSharp.csproj">

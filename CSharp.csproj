@@ -47,6 +47,7 @@
     <Compile Include="219.ContainsDuplicateII.cs" />
     <Compile Include="218.TheSkylineProblem.cs" />
     <Compile Include="223.RectangleArea.cs" />
+    <Compile Include="65.ValidNumber.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
