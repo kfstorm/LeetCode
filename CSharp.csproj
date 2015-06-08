@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="146.LRUCache.cs" />
     <Compile Include="212.WordSearchII.cs" />
     <Compile Include="214.ShortestPalindrome.cs" />
     <Compile Include="217.ContainsDuplicate.cs" />
