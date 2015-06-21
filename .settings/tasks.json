@@ -1,0 +1,16 @@
+{
+	"version": "0.1.0",
+	
+	"command": "runtest",
+	
+    "args": ["${fileBasename}"],
+
+	"isShellCommand": true,
+
+    "isBuildCommand": true,
+
+    "isTestCommand": true,
+
+    "problemMatcher": ["$msCompile"]
+
+}
