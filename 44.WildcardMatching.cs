@@ -8,9 +8,11 @@ public class Solution {
         }
         
         bool[,] f = new bool[s.Length + 1, p.Length + 1];
-        for (var i = 0; i <= s.Length; ++i)
+        bool[] d = new bool[s.Length + 1]; // d[i] means f[0, j] || f[1, j] || ... || f[i, j]
+        for (var j = 0; j <= p.Length; ++j)
         {
-            for (var j = 0; j <= p.Length; ++j)
+            d[0] = j == 0 ? true : d[0] && p[j - 1] == '*';
+            for (var i = 0; i <= s.Length; ++i)
             {
                 if (j == 0)
                 {
@@ -20,14 +22,11 @@ public class Solution {
                 
                 if (p[j - 1] == '*')
                 {
-                    for (var k = 0; k <= i; ++k)
+                    if (i > 0)
                     {
-                        if (f[k, j - 1])
-                        {
-                            f[i, j] = true;
-                            break;
-                        }
+                        d[i] = f[i, j - 1] || d[i - 1];
                     }
+                    f[i, j] = d[i];
                 }
                 else if (p[j - 1] == '?')
                 {
