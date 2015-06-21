@@ -39,24 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="146.LRUCache.cs" />
-    <Compile Include="149.MaxPointsOnALine.cs" />
-    <Compile Include="166.FractionToRecurringDecimal.cs" />
-    <Compile Include="212.WordSearchII.cs" />
-    <Compile Include="214.ShortestPalindrome.cs" />
-    <Compile Include="217.ContainsDuplicate.cs" />
-    <Compile Include="220.ContainsDuplicateIII.cs" />
-    <Compile Include="219.ContainsDuplicateII.cs" />
-    <Compile Include="218.TheSkylineProblem.cs" />
-    <Compile Include="223.RectangleArea.cs" />
-    <Compile Include="65.ValidNumber.cs" />
+    <Compile Include="*.cs" Exclude="*.Test.cs"/>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="221.MaximalSquare.cs" />
-    <Compile Include="222.CountCompleteTreeNodes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
