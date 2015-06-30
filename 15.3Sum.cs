@@ -2,10 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+public class ThreeSumComparer : IEqualityComparer<IList<int>>
+{
+    public bool Equals(IList<int> left, IList<int> right)
+    {
+        return left[0] == right[0] && left[1] == right[1] && left[2] == right[2];
+    }
+    
+    public int GetHashCode(IList<int> obj)
+    {
+        return (obj[0] ^ obj[1] ^ obj[2]).GetHashCode();
+    }
+}
+
 public class Solution {
     public IList<IList<int>> ThreeSum(int[] nums) {
         Array.Sort(nums);
-        var results = new Dictionary<string, IList<int>>();
+        var results = new HashSet<IList<int>>(new ThreeSumComparer());
         
         var cIndex = Array.BinarySearch(nums, 0);
         if (cIndex < 0) cIndex = ~cIndex;
@@ -16,7 +29,6 @@ public class Solution {
             var bIndex = cIndex - 1;
             while (aIndex < bIndex)
             {
-                //Console.WriteLine("{0} {1} {2}", aIndex, bIndex, cIndex);
                 if (nums[aIndex] + nums[bIndex] + c < 0)
                 {
                     var step = 1;
@@ -24,7 +36,6 @@ public class Solution {
                     {
                         aIndex += step;
                         step *= 2;
-                        //Console.WriteLine("{0} {1} {2}", aIndex, bIndex, cIndex);
                     }
                     step /= 2;
                     while (step > 0)
@@ -34,7 +45,6 @@ public class Solution {
                             aIndex += step;
                         }
                         step /= 2;
-                        //Console.WriteLine("{0} {1} {2}", aIndex, bIndex, cIndex);
                     }
                 }
                 
@@ -45,7 +55,6 @@ public class Solution {
                     {
                         bIndex -= step;
                         step *= 2;
-                        //Console.WriteLine("{0} {1} {2}", aIndex, bIndex, cIndex);
                     }
                     step /= 2;
                     while (step > 0)
@@ -55,21 +64,15 @@ public class Solution {
                             bIndex -= step;
                         }
                         step /= 2;
-                        //Console.WriteLine("{0} {1} {2}", aIndex, bIndex, cIndex);
                     }
                 }
                 
                 if (nums[aIndex] + nums[bIndex] + c == 0)
                 {
                     var list = new List<int> { nums[aIndex], nums[bIndex], c };
-                    var key = string.Join(",", list);
-                    if (!results.ContainsKey(key))
-                    {
-                        results.Add(key, list);
-                    }
+                    results.Add(list);
                     ++aIndex;
                     --bIndex;
-                    //Console.WriteLine("{0} {1} {2}", aIndex, bIndex, cIndex);
                 }
                 else if (nums[aIndex] + nums[bIndex] + c < 0)
                 {
@@ -83,6 +86,6 @@ public class Solution {
             ++cIndex;
         }
         
-        return results.Values.ToList();
+        return results.ToList();
     }
 }

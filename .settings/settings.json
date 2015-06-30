@@ -1,4 +1,8 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-	"editor.insertSpaces": "space"
+	"editor.insertSpaces": "space",
+    "files.exclude": {
+		"/.vs": true,
+		"/bin": true
+	}
 }
