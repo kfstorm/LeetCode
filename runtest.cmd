@@ -32,9 +32,12 @@ set _csc="C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\csc.exe"
 echo Restoring NuGet packages ...
 nuget restore -PackagesDirectory packages -Verbosity quiet
 echo Compiling %* ...
-%_csc% /target:library /out:%bin%\%problem%.dll /r:packages\NUnit.2.6.4\lib\nunit.framework.dll %* /nologo /fullpaths
+set _nunit=packages\NUnit.2.6.4\lib\nunit.framework.dll
+set _json=packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll
+%_csc% /target:library /out:%bin%\%problem%.dll /r:%_nunit% /r:%_json% %* /nologo /fullpaths
 if !errorlevel! NEQ 0 exit /b
-xcopy packages\NUnit.2.6.4\lib\nunit.framework.dll %bin% 1>nul
+xcopy %_nunit% %bin% 1>nul
+xcopy %_json% %bin% 1>nul
 if "%hasTest%"=="true" (
     echo Testing ...
     packages\NUnit.Runners.2.6.4\tools\nunit-console.exe %bin%\%problem%.dll /noresult /nologo /framework:4.5
