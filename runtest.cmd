@@ -34,7 +34,8 @@ nuget restore -PackagesDirectory packages -Verbosity quiet
 echo Compiling %* ...
 set _nunit=packages\NUnit.2.6.4\lib\nunit.framework.dll
 set _json=packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll
-%_csc% /target:library /out:%bin%\%problem%.dll /r:%_nunit% /r:%_json% %* /nologo /fullpaths
+set _numerics=System.Numerics.dll
+%_csc% /target:library /out:%bin%\%problem%.dll /r:%_nunit% /r:%_json% /r:%_numerics% %* /nologo /fullpaths
 if !errorlevel! NEQ 0 exit /b
 xcopy %_nunit% %bin% 1>nul
 xcopy %_json% %bin% 1>nul
