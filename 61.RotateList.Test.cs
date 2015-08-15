@@ -1,14 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
 using NUnit.Framework;
-
-public class ListNode {
-    public int val;
-    public ListNode next;
-    public ListNode(int x) { val = x; }
-}
 
 [TestFixture]
 public class TestClass
@@ -30,37 +20,8 @@ public class TestClass
     [TestCase("[1,2,3,4,5]", 5, "[1,2,3,4,5]")]
     public void TestMethod(string listString, int k, string expectedResultString)
     {
-        var head = GetHead(JsonConvert.DeserializeObject<int[]>(listString));
+        var head = ListNode.Deserialize(listString);
         var result = new Solution().RotateRight(head, k);
-        Assert.AreEqual(expectedResultString, JsonConvert.SerializeObject(GetList(result)));
-    }
-
-    private ListNode GetHead(int[] values)
-    {
-        ListNode head = null;
-        ListNode current = null;
-        foreach (var val in values)
-        {
-            if (head == null)
-            {
-                head = new ListNode(val);
-                current = head;
-            }
-            else
-            {
-                current.next = new ListNode(val);
-                current = current.next;
-            }
-        }
-        return head;
-    }
-
-    private IEnumerable<int> GetList(ListNode head)
-    {
-        while (head != null)
-        {
-            yield return head.val;
-            head = head.next;
-        }
+        Assert.AreEqual(expectedResultString, ListNode.Serialize(result));
     }
 }

@@ -2,7 +2,7 @@ using System;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
     [TestCase("1 2 3 4 5", 0, 0)]
     [TestCase("1 2 3 4 5", 1, 4)]
@@ -40,15 +40,10 @@ public class TestClass
     [TestCase(10, 10)]
     public void TestCaseGenerator(int n, int maxPrice)
     {
-        var random = new Random();
         for (var t = 0; t < 100; ++t)
         {
-            var prices = new int[n];
-            for (var i = 0; i < n; ++i)
-            {
-                prices[i] = random.Next(1, maxPrice + 1);
-            }
-            var k = random.Next(1, n/2);
+            var prices = GenerateIntegerArray(n, n, 1, maxPrice);
+            var k = Random.Next(1, n/2);
             var stupidResult = new Solution().MaxProfitStupid(k, prices);
             var result = new Solution().MaxProfit(k, prices);
             if (stupidResult != result)

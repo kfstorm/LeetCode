@@ -2,28 +2,19 @@ using System;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-public class TreeNode {
-    public int val;
-    public TreeNode left;
-    public TreeNode right;
-    public TreeNode(int x) { val = x; }
-}
-
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
-    private static Random _random = new Random();
-
     [TestCase(10, 1000)]
     public void TestMethod(int maxSize, int repeatTimes)
     {
-        for (var r = 0; r < repeatTimes; ++r)
+        Repeat(repeatTimes, () =>
         {
-            var size = _random.Next(2, maxSize + 1);
+            var size = Random.Next(2, maxSize + 1);
             var allNodes = new TreeNode[size];
             var root = CreateTree(allNodes, 0, size - 1);
-            var value1 = _random.Next(0, size - 1);
-            var value2 = _random.Next(value1 + 1, size);
+            var value1 = Random.Next(0, size - 1);
+            var value2 = Random.Next(value1 + 1, size);
             Assert.IsTrue(value1 < value2);
             allNodes[value1].val = value2;
             allNodes[value2].val = value1;
@@ -39,13 +30,13 @@ public class TestClass
             }
             Assert.AreEqual(value1, allNodes[value1].val, testData);
             Assert.AreEqual(value2, allNodes[value2].val, testData);
-        }
+        });
     }
 
     private TreeNode CreateTree(TreeNode[] allNodes, int minValue, int maxValue)
     {
         if (minValue > maxValue) return null;
-        var value = _random.Next(minValue, maxValue + 1);
+        var value = Random.Next(minValue, maxValue + 1);
         var node = new TreeNode(value)
         {
             left = CreateTree(allNodes, minValue, value - 1),

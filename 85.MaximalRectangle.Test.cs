@@ -3,30 +3,19 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
-    private static Random _random = new Random();
-
     //[TestCase(2, 2, 1000)]
     [TestCase(10, 10, 1000)]
     public void TestMethod(int maxHeight, int maxWidth, int repeatTimes)
     {
-        for (var r = 0; r < repeatTimes; ++r)
+        Repeat(repeatTimes, () =>
         {
-            var height = _random.Next(maxHeight + 1);
-            var width = _random.Next(maxWidth + 1);
-            var matrix = new char[height, width];
-            for (var i = 0; i < height; ++i)
-            {
-                for (var j = 0; j < width; ++j)
-                {
-                    matrix[i, j] = _random.Next(2) == 0 ? '0' : '1';
-                }
-            }
+            var matrix = GenerateMatrix(0, maxHeight, 0, maxWidth, () => Random.Next(2) == 0 ? '0' : '1');
             var expectedResult = MaximalRectangle(matrix);
             var answer = new Solution().MaximalRectangle(matrix);
             Assert.AreEqual(expectedResult, answer, JsonConvert.SerializeObject(matrix));
-        }
+        });
     }
 
     private int MaximalRectangle(char[,] matrix)

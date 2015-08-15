@@ -4,21 +4,20 @@ using System.Linq;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
     [TestCase(1)]
     [TestCase(10)]
     [TestCase(100)]
     public void TestMethod(int operationCount)
     {
-        var random = new Random();
         var stack = new Stack<int>();
         var heap = new SortedList<int, int>();
         var minStack = new MinStack();
-        for (var i = 0; i < operationCount; ++i)
+        Repeat(operationCount, () =>
         {
-            var operation = stack.Count == 0 ? 0 : random.Next(4);
-            var x = random.Next(int.MaxValue);
+            var operation = stack.Count == 0 ? 0 : Random.Next(4);
+            var x = Random.Next(int.MaxValue);
             switch (operation)
             {
                 case 0: // Push
@@ -38,6 +37,6 @@ public class TestClass
                     Assert.AreEqual(heap.First().Key, minStack.GetMin());
                     break;
             }
-        }
+        });
     }
 }

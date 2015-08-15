@@ -1,33 +1,19 @@
-using System;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
-    private static Random _random = new Random();
-
     [TestCase(5, 5, 1000)]
     public void TestMethod(int maxLength, int maxCharKinds, int repeatTimes)
     {
-        for (var r = 0; r < repeatTimes; ++r)
+        Repeat(repeatTimes, () =>
         {
-            var s1 = GenerateString(maxLength, maxCharKinds);
-            var s2 = GenerateString(maxLength, maxCharKinds);
+            var s1 = GenerateString(0, maxLength, 'a', (char)(maxCharKinds + 'a' - 1));
+            var s2 = GenerateString(0, maxLength, 'a', (char)(maxCharKinds + 'a' - 1));
             var expectedResult = IsScramble(s1, s2);
             var result = new Solution().IsScramble(s1, s2);
             Assert.AreEqual(expectedResult, result, string.Format("s1: {0}. s2: {1}.", s1, s2));
-        }
-    }
-
-    private string GenerateString(int maxLength, int maxCharKinds)
-    {
-        var length = _random.Next(maxLength + 1);
-        var chars = new char[length];
-        for (var i = 0; i < length; ++i)
-        {
-            chars[i] = (char) (_random.Next(maxCharKinds) + 'a');
-        }
-        return new string(chars);
+        });
     }
 
     private bool IsScramble(string s1, string s2)

@@ -7,65 +7,30 @@ using NUnit.Framework;
 public class TestClass
 {
     [TestCase(@"
-        53..7....
-        6..195...
-        .98....6.
-        8...6...3
-        4..8.3..1
-        7...2...6
-        .6....28.
-        ...419..5
-        ....8..79
+        [['5','3','.','.','7','.','.','.','.'],
+        ['6','.','.','1','9','5','.','.','.'],
+        ['.','9','8','.','.','.','.','6','.'],
+        ['8','.','.','.','6','.','.','.','3'],
+        ['4','.','.','8','.','3','.','.','1'],
+        ['7','.','.','.','2','.','.','.','6'],
+        ['.','6','.','.','.','.','2','8','.'],
+        ['.','.','.','4','1','9','.','.','5'],
+        ['.','.','.','.','8','.','.','7','9']]
     ", @"
-        534678912
-        672195348
-        198342567
-        859761423
-        426853791
-        713924856
-        961537284
-        287419635
-        345286179
+        [['5','3','4','6','7','8','9','1','2'],
+        ['6','7','2','1','9','5','3','4','8'],
+        ['1','9','8','3','4','2','5','6','7'],
+        ['8','5','9','7','6','1','4','2','3'],
+        ['4','2','6','8','5','3','7','9','1'],
+        ['7','1','3','9','2','4','8','5','6'],
+        ['9','6','1','5','3','7','2','8','4'],
+        ['2','8','7','4','1','9','6','3','5'],
+        ['3','4','5','2','8','6','1','7','9']]
     ")]
     public void TestMethod1(string boardString, string expectedBoardString)
     {
-        var board = DeserializeBoard(boardString);
+        var board = JsonConvert.DeserializeObject<char[,]>(boardString);
         new Solution().SolveSudoku(board);
-        Assert.AreEqual(SerializeBoard(DeserializeBoard(expectedBoardString)), SerializeBoard(board));
-    }
-
-    private char[,] DeserializeBoard(string boardString)
-    {
-        var board = new char[9,9];
-        var i = 0;
-        var j = 0;
-        foreach (var ch in boardString)
-        {
-            if (ch == '.' || char.IsDigit(ch))
-            {
-                board[i, j] = ch;
-                ++j;
-                if (j == 9)
-                {
-                    ++i;
-                    j = 0;
-                }
-            }
-        }
-        return board;
-    }
-
-    private string SerializeBoard(char[,] board)
-    {
-        var sb = new StringBuilder();
-        for (var i = 0; i < 9; ++i)
-        {
-            for (var j = 0; j < 9; ++j)
-            {
-                sb.Append(board[i, j]);
-            }
-            sb.AppendLine();
-        }
-        return sb.ToString();
+        Assert.AreEqual(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<char[,]>(expectedBoardString)), JsonConvert.SerializeObject(board));
     }
 }

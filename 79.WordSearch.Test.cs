@@ -4,20 +4,13 @@ using NUnit.Framework;
 [TestFixture]
 public class TextClass
 {
-    [TestCase("[\"ABCE\", \"SFCS\", \"ADEE\"]", "ABCCED", true)]
-    [TestCase("[\"ABCE\", \"SFCS\", \"ADEE\"]", "SEE", true)]
-    [TestCase("[\"ABCE\", \"SFCS\", \"ADEE\"]", "ABCB", false)]
+    [TestCase("[['A','B','C','E'], ['S','F','C','S'], ['A','D','E','E']]", "ABCCED", true)]
+    [TestCase("[['A','B','C','E'], ['S','F','C','S'], ['A','D','E','E']]", "SEE", true)]
+    [TestCase("[['A','B','C','E'], ['S','F','C','S'], ['A','D','E','E']]", "ABCB", false)]
+
     public void TestMethod(string boardString, string word, bool expectedResult)
     {
-        var boardStrings = JsonConvert.DeserializeObject<string[]>(boardString);
-        var board = new char[boardStrings.Length, boardStrings[0].Length];
-        for (var i = 0; i < boardStrings.Length; ++i)
-        {
-            for (var j = 0; j < boardStrings[i].Length; ++j)
-            {
-                board[i, j] = boardStrings[i][j];
-            }
-        }
+        var board = JsonConvert.DeserializeObject<char[,]>(boardString);
         var answer = new Solution().Exist(board, word);
         Assert.AreEqual(expectedResult, answer);
     }

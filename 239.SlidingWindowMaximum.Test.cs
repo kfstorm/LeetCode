@@ -4,27 +4,20 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
-    private static Random _random = new Random();
-
     [TestCase(10, 10, 1000)]
     public void TestMethod(int maxLength, int maxValue, int repeatTimes)
     {
-        for (var r = 0; r < repeatTimes; ++r)
+        Repeat(repeatTimes, () =>
         {
-            var length = _random.Next(maxLength + 1);
-            var nums = new int[length];
-            for (var i = 0; i < length; ++i)
-            {
-                nums[i] = _random.Next(maxValue);
-            }
-            var k = length == 0 ? 0 : _random.Next(1, length + 1);
+            var nums = GenerateIntegerArray(maxLength, maxValue);
+            var k = nums.Length == 0 ? 0 : Random.Next(1, nums.Length + 1);
             var expectedResult = MaxSlidingWindow(nums, k);
             var result = new Solution().MaxSlidingWindow(nums, k);
             Assert.AreEqual(JsonConvert.SerializeObject(expectedResult), JsonConvert.SerializeObject(result),
                 string.Format("{0}. {1}.", JsonConvert.SerializeObject(nums), k));
-        }
+        });
     }
 
     private int[] MaxSlidingWindow(int[] nums, int k)

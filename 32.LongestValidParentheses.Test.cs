@@ -1,10 +1,7 @@
-using System;
-using System.Text;
-using Newtonsoft.Json;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
     [TestCase("", 0)]
     [TestCase("(", 0)]
@@ -24,24 +21,17 @@ public class TestClass
         var result = new Solution().LongestValidParentheses(s);
         Assert.AreEqual(expectedResult, result);
     }
-    
+
     [TestCase(10, 1000)]
     public void TestMethod2(int maxLength, int repeatCount)
     {
-        var random = new Random();
-        for (var r = 0; r < repeatCount; ++r)
+        Repeat(repeatCount, () =>
         {
-            var length = random.Next(maxLength + 1);
-            var sb = new StringBuilder();
-            for (var i = 0; i < length; ++i)
-            {
-                sb.Append(random.Next(2) == 0 ? '(' : ')');
-            }
-            var s = sb.ToString();
+            var s = GenerateString(0, maxLength, '(', ')');
             Assert.AreEqual(LongestValidParentheses(s), new Solution().LongestValidParentheses(s), s);
-        }
+        });
     }
-    
+
     private int LongestValidParentheses(string s)
     {
         var result = 0;
@@ -73,7 +63,7 @@ public class TestClass
                 if (valid && count == 0 && j - i + 1 > result)
                 {
                     result = j - i + 1;
-                } 
+                }
             }
         }
         return result;

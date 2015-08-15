@@ -4,7 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
     [TestCase("PAYPALISHIRING", 1, "PAYPALISHIRING")]
     [TestCase("PAYPALISHIRING", 2, "PYAIHRNAPLSIIG")]
@@ -19,17 +19,10 @@ public class TestClass
     [TestCase(10, 10, 10000)]
     public void TestMethod2(int maxLength, int maxRows, int repeatTimes)
     {
-        var random = new Random();
-        for (var r = 0; r < repeatTimes; ++r)
+        Repeat(repeatTimes, () =>
         {
-            var length = random.Next(maxLength + 1);
-            var chars = new char[length];
-            for (var i = 0; i < length; ++i)
-            {
-                chars[i] = (char)(random.Next(26) + 'A');
-            }
-            var s = new string(chars);
-            var numRows = random.Next(maxRows) + 1;
+            var s = GenerateString(0, maxLength, 'A', 'Z');
+            var numRows = Random.Next(maxRows) + 1;
             var expectedResult = Convert(s, numRows);
             try
             {
@@ -40,7 +33,7 @@ public class TestClass
             {
                 Assert.Fail("s: {0}. numRows: {1}.", s, numRows);
             }
-        }
+        });
     }
 
     private string Convert(string s, int numRows)

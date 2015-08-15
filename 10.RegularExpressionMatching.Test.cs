@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
     [TestCase("", "", true)]
     [TestCase("", ".*", true)]
@@ -26,21 +26,22 @@ public class TestClass
         var result = new Solution().IsMatch(s, p);
         Assert.AreEqual(expectedResult, result);
     }
-    
-    [TestCase(10, 10, 10000)]
+
+    [TestCase(10, 10, 100)]
     public void TestMethod2(int sMaxLength, int pMaxLength, int testCount)
     {
-        var random = new Random();
-        for (var i = 0; i < testCount; ++i)
-        {
-            var s = GenerateString(random, sMaxLength, false);
-            var p = GenerateString(random, pMaxLength, true);
-            var expectedResult = Regex.Match(s, string.Format("^{0}$", p)).Success;
-            var result = new Solution().IsMatch(s, p);
-            Assert.AreEqual(expectedResult, result, string.Format("s={0} p={1}", s, p));
-        }
+        Repeat(testCount, () => {
+            for (var i = 0; i < testCount; ++i)
+            {
+                var s = GenerateString(Random, sMaxLength, false);
+                var p = GenerateString(Random, pMaxLength, true);
+                var expectedResult = Regex.Match(s, string.Format("^{0}$", p)).Success;
+                var result = new Solution().IsMatch(s, p);
+                Assert.AreEqual(expectedResult, result, string.Format("s={0} p={1}", s, p));
+            }
+        });
     }
-    
+
     private string GenerateString(Random random, int maxLength, bool isRegex)
     {
         var length = random.Next(maxLength + 1);

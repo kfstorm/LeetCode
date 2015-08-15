@@ -1,12 +1,6 @@
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-public class ListNode {
-    public int val;
-    public ListNode next;
-    public ListNode(int x) { val = x; }
-}
-
 [TestFixture]
 public class TestClass
 {

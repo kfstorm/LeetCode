@@ -3,28 +3,22 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
-    private static Random _random = new Random(); 
-    
     [TestCase(-10, 10, 10, 1000)]
     [TestCase(-10, 10, 1, 100)]
     [TestCase(-1, 1, 10, 100)]
     public void TestMethod(int minNum, int maxNum, int numCount, int repeat)
     {
-        for (var r = 0; r < repeat; ++r)
+        Repeat(repeat, () =>
         {
-            var nums = new int[numCount];
-            for (var i = 0; i < numCount; ++i)
-            {
-                nums[i] = _random.Next(minNum, maxNum);
-            }
+            var nums = GenerateIntegerArray(numCount, numCount, minNum, maxNum);
             var result = new Solution().MaxProduct(nums);
             var expectedResult = MaxProduct(nums);
             Assert.AreEqual(expectedResult, result, JsonConvert.SerializeObject(nums));
-        }
+        });
     }
-    
+
     private int MaxProduct(int[] nums)
     {
         var result = int.MinValue;

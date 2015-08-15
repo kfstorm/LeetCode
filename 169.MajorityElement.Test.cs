@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
     [TestCase("[1]", 1)]
     [TestCase("[1,1]", 1)]
@@ -19,31 +19,22 @@ public class TestClass
         Assert.AreEqual(expectedresult, result);
     }
 
-    private static Random _random = new Random();
-
     [TestCase(5, 5, 1000)]
     [TestCase(10, 10, 1000)]
     public void TestMethod2(int maxLength, int maxNumber, int repeatTimes)
     {
-        for (var r = 0; r < repeatTimes; ++r)
+        Repeat(repeatTimes, () =>
         {
-            var length = _random.Next(1, maxLength + 1);
-            var nums = new int[length];
-            var majority = _random.Next(maxNumber + 1);
-            var majorityLength = _random.Next(length / 2 + 1, length + 1);
-            for (var i = 0; i < length; ++i)
+            var nums = GenerateIntegerArray(1, maxLength, 0, maxNumber);
+            var majority = Random.Next(maxNumber + 1);
+            var majorityLength = Random.Next(nums.Length / 2 + 1, nums.Length + 1);
+            for (var i = 0; i < majorityLength; ++i)
             {
-                nums[i] = i < majorityLength ? majority : _random.Next(maxNumber + 1);
+                nums[i] = majority;
             }
-            for (var i = 0; i < length; ++i)
-            {
-                var j = _random.Next(i, length);
-                var temp = nums[i];
-                nums[i] = nums[j];
-                nums[j] = temp;
-            }
+            Shuffle(nums);
             var result = new Solution().MajorityElement(nums);
             Assert.AreEqual(majority, result);
-        }
+        });
     }
 }

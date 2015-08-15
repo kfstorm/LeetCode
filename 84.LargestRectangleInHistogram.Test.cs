@@ -3,25 +3,18 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
-    private static Random _random = new Random();
-
     [TestCase(10,10,1000)]
     public void TestMethod(int maxLength, int maxHeight, int repeatTimes)
     {
-        for (var r = 0; r < repeatTimes; ++r)
+        Repeat(repeatTimes, () =>
         {
-            var length = _random.Next(maxLength + 1);
-            var height = new int[length];
-            for (var i = 0; i < length; ++i)
-            {
-                height[i] = _random.Next(maxHeight + 1);
-            }
+            var height = GenerateIntegerArray(maxLength, maxHeight);
             var expectedResult = LargestRectangleArea(height);
             var result = new Solution().LargestRectangleArea(height);
             Assert.AreEqual(expectedResult, result, JsonConvert.SerializeObject(height));
-        }
+        });
     }
 
     private int LargestRectangleArea(int[] height)

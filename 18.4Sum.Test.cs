@@ -5,28 +5,21 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
-    private static Random _random = new Random();
-
     [TestCase(10, -10, 10, 1000)]
     public void TestMethod(int maxLength, int min, int max, int repeatTimes)
     {
-        for (var r = 0; r < repeatTimes; ++r)
+        Repeat(repeatTimes, () =>
         {
-            var length = _random.Next(maxLength + 1);
-            var nums = new int[length];
-            for (var i = 0; i < nums.Length; ++i)
-            {
-                nums[i] = _random.Next(min, max + 1);
-            }
-            var target = _random.Next(min * length, (max + 1) * length);
+            var nums = GenerateIntegerArray(0, maxLength, min, max);
+            var target = Random.Next(min * nums.Length, (max + 1) * nums.Length);
             var expectedResult = FourSum(nums, target);
             var expectedResultString = JsonConvert.SerializeObject(expectedResult.OrderBy(x => string.Join(",", x)));
             var result = new Solution().FourSum(nums, target);
             var resultString = JsonConvert.SerializeObject(result.OrderBy(x => string.Join(",", x)));
             Assert.AreEqual(expectedResultString, resultString, string.Format("nums: {0}. target: {1}.", JsonConvert.SerializeObject(nums), target));
-        }
+        });
     }
 
     private IList<IList<int>> FourSum(int[] nums, int target)

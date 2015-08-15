@@ -21,6 +21,10 @@ if "%csFiles%" == "" (
     exit /b 1
 )
 
+for /F %%I in ('dir /b /s shared\*.cs 2^>nul') do (
+    set csFiles=!csFiles! %%I
+)
+
 call :CS %csFiles%
 if !errorlevel! NEQ 0 exit /b
 

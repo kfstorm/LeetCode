@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
     [TestCase("[]", "[]")]
     [TestCase("[1]", "[1]")]
@@ -23,35 +23,26 @@ public class TestClass
         Assert.AreEqual(expectedresultString, JsonConvert.SerializeObject(result.OrderBy(i => i)));
     }
 
-    private static Random _random = new Random();
-
     [TestCase(5, 5, 1000)]
     [TestCase(10, 10, 1000)]
     public void TestMethod2(int maxLength, int maxNumber, int repeatTimes)
     {
         var majorityCounts = new HashSet<int>();
-        for (var r = 0; r < repeatTimes; ++r)
+        Repeat(repeatTimes, () =>
         {
-            var length = _random.Next(1, maxLength + 1);
-            var nums = new int[length];
-            var oneMajority = _random.Next(maxNumber + 1);
-            var oneMajorityLength = _random.Next(length / 2 + 1, length + 1);
-            for (var i = 0; i < length; ++i)
+            var nums = GenerateIntegerArray(1, maxLength, 0, maxNumber);
+            var oneMajority = Random.Next(maxNumber + 1);
+            var oneMajorityLength = Random.Next(nums.Length / 2 + 1, nums.Length + 1);
+            for (var i = 0; i < oneMajorityLength; ++i)
             {
-                nums[i] = i < oneMajorityLength ? oneMajority : _random.Next(maxNumber + 1);
+                nums[i] =  oneMajority;
             }
-            for (var i = 0; i < length; ++i)
-            {
-                var j = _random.Next(i, length);
-                var temp = nums[i];
-                nums[i] = nums[j];
-                nums[j] = temp;
-            }
-            var expectedresult = nums.GroupBy(i => i).Where(g => g.Count() > length / 3).Select(g => g.Key).OrderBy(i => i);
+            Shuffle(nums);
+            var expectedresult = nums.GroupBy(i => i).Where(g => g.Count() > nums.Length / 3).Select(g => g.Key).OrderBy(i => i);
             var result = new Solution().MajorityElement(nums).OrderBy(i => i);
             Assert.AreEqual(JsonConvert.SerializeObject(expectedresult), JsonConvert.SerializeObject(result));
             majorityCounts.Add(result.Count());
-        }
+        });
         Assert.IsFalse(majorityCounts.Contains(0));
         Assert.IsTrue(majorityCounts.Contains(1));
         Assert.IsTrue(majorityCounts.Contains(2));

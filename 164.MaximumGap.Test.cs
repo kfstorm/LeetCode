@@ -4,26 +4,20 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 
 [TestFixture]
-public class TestClass
+public class TestClass : TestClassBase
 {
-    private static Random _random = new Random();
     [TestCase(10, 10, 1000)]
     [TestCase(100, 100, 10000)]
     [TestCase(int.MaxValue, 100, 10000)]
     public void TestMethod(int maxValue, int maxLength, int repeatTimes)
     {
-        for (var r = 0; r < repeatTimes; ++r)
+        Repeat(repeatTimes, () =>
         {
-            var length = _random.Next(maxLength + 1);
-            var nums = new int[length];
-            for (var i = 0; i < nums.Length; ++i)
-            {
-                nums[i] = _random.Next(maxValue < int.MaxValue ? maxValue + 1 : int.MaxValue);
-            }
+            var nums = GenerateIntegerArray(maxLength, maxValue);
             var expectedResult = MaximumGap(nums);
             var result = new Solution().MaximumGap(nums);
             Assert.AreEqual(expectedResult, result, JsonConvert.SerializeObject(nums));
-        }
+        });
     }
 
     private int MaximumGap(int[] nums)
