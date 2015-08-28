@@ -1,14 +1,6 @@
-using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-
-public class UndirectedGraphNode {
-    public int label;
-    public IList<UndirectedGraphNode> neighbors;
-    public UndirectedGraphNode(int x) { label = x; neighbors = new List<UndirectedGraphNode>(); }
-};
-
 
 [TestFixture]
 public class TestClass

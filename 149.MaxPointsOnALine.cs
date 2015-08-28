@@ -1,30 +1,8 @@
 ﻿// https://leetcode.com/problems/max-points-on-a-line/
 
 using System.Collections.Generic;
-using P149;
 
-namespace P149
-{
-    public class Point
-    {
-        public int x;
-        public int y;
-
-        public Point()
-        {
-            x = 0;
-            y = 0;
-        }
-
-        public Point(int a, int b)
-        {
-            x = a;
-            y = b;
-        }
-    }
-}
-
-public partial class Solution
+public class Solution
 {
     public int MaxPoints(Point[] points)
     {

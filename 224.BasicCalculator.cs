@@ -1,25 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-
-public class Stack<T> : List<T>
-{
-    public T Peek()
-    {
-        return this[Count - 1];
-    }
-    
-    public void Push(T element)
-    {
-        Add(element);
-    }
-    
-    public T Pop()
-    {
-        var element = Peek();
-        RemoveAt(Count - 1);
-        return element;
-    }
-}
 
 public class Solution {
     public int Calculate(string s) {
@@ -54,7 +33,7 @@ public class Solution {
                     number = -1;
                 }
                 if (char.IsWhiteSpace(ch)) continue;
-                
+
                 if (ch == ')')
                 {
                     symbols.Pop();
@@ -77,7 +56,7 @@ public class Solution {
                 }
             }
         }
-        
+
         return numbers.Pop();
     }
 }

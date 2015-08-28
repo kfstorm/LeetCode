@@ -3,17 +3,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using P212;
 
-namespace P212
+public class WordDictionary : Dictionary<char, WordDictionary>
 {
-    public class WordDictionary : Dictionary<char, WordDictionary>
-    {
-        public bool CanEnd = false;
-    }
+    public bool CanEnd = false;
 }
 
-public partial class Solution
+public class Solution
 {
     public IList<string> FindWords(char[,] board, string[] words)
     {

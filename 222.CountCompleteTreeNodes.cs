@@ -1,24 +1,8 @@
 ﻿// https://leetcode.com/problems/count-complete-tree-nodes/
 
 using System;
-using P222;
 
-namespace P222
-{
-    public class TreeNode
-    {
-        public int val;
-        public TreeNode left;
-        public TreeNode right;
-
-        public TreeNode(int x)
-        {
-            val = x;
-        }
-    }
-}
-
-public partial class Solution
+public class Solution
 {
     public int CountNodes(TreeNode root)
     {

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
-using P149;
 
 [TestFixture]
 public class MaxPointsOnALineTest
