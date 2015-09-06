@@ -27,7 +27,6 @@ public class TestClass : TestClassBase
     [TestCase(10, 10, 1000)]
     public void TestMethod2(int maxLength, int maxNumber, int repeatTimes)
     {
-        var majorityCounts = new HashSet<int>();
         Repeat(repeatTimes, () =>
         {
             var nums = GenerateIntegerArray(1, maxLength, 0, maxNumber);
@@ -41,11 +40,6 @@ public class TestClass : TestClassBase
             var expectedresult = nums.GroupBy(i => i).Where(g => g.Count() > nums.Length / 3).Select(g => g.Key).OrderBy(i => i);
             var result = new Solution().MajorityElement(nums).OrderBy(i => i);
             Assert.AreEqual(JsonConvert.SerializeObject(expectedresult), JsonConvert.SerializeObject(result));
-            majorityCounts.Add(result.Count());
         });
-        Assert.IsFalse(majorityCounts.Contains(0));
-        Assert.IsTrue(majorityCounts.Contains(1));
-        Assert.IsTrue(majorityCounts.Contains(2));
-        Assert.IsTrue(majorityCounts.Contains(2));
     }
 }
