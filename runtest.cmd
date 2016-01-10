@@ -32,10 +32,10 @@ echo End.
 goto :EOF
 
 :CS
-set _csc="C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\csc.exe"
 echo Restoring NuGet packages ...
 nuget restore -PackagesDirectory packages -Verbosity quiet
 echo Compiling %* ...
+set _csc="packages\Microsoft.Net.Compilers.1.1.1\tools\csc.exe"
 set _nunit=packages\NUnit.2.6.4\lib\nunit.framework.dll
 set _json=packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll
 set _numerics=System.Numerics.dll
