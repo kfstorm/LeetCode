@@ -14,7 +14,7 @@ public class TestClass : TestClassBase
     {
         var x = JsonConvert.DeserializeObject<int[]>(xString);
         var result = new Solution().IsSelfCrossing(x);
-        Assert.AreEqual(expectedResult, result);
+        Assert.AreEqual(expectedResult, result, xString);
     }
 
     [TestCase(100, 100, 10000)]
