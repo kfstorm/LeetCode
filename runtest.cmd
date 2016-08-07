@@ -39,7 +39,7 @@ set _csc="packages\Microsoft.Net.Compilers.1.1.1\tools\csc.exe"
 set _nunit=packages\NUnit.2.6.4\lib\nunit.framework.dll
 set _json=packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll
 set _numerics=System.Numerics.dll
-%_csc% /target:library /out:%bin%\%problem%.dll /r:%_nunit% /r:%_json% /r:%_numerics% %* /nologo /fullpaths
+%_csc% /target:library /out:%bin%\%problem%.dll /debug:full /r:%_nunit% /r:%_json% /r:%_numerics% %* /nologo /fullpaths /langversion:4
 if !errorlevel! NEQ 0 exit /b
 xcopy %_nunit% %bin% 1>nul
 xcopy %_json% %bin% 1>nul

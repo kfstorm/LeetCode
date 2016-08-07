@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public abstract class TestClassBase
 {
@@ -70,5 +71,15 @@ public abstract class TestClassBase
             list[i] = list[j];
             list[j] = temp;
         }
+    }
+
+    protected T LogPerf<T>(Func<T> func, string name)
+    {
+        var stopwatch = new Stopwatch();
+        stopwatch.Start();
+        var result = func();
+        stopwatch.Stop();
+        Console.WriteLine("Performance of {0}: {1}ms", name, stopwatch.ElapsedMilliseconds);
+        return result;
     }
 }
